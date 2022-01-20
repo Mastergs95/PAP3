@@ -21,9 +21,12 @@ namespace PAP3.Models
         [Required]
         [StringLength(256, MinimumLength = 11)]
         [Display(Name = "Email")]
-        public int Email { get; set; }
+        public string Email { get; set; }
 
-        
+        [Required]
+        [Display(Name = "NIF")]
+        public int Nif { get; set; }
+
         [Display(Name = "Data de Nascimento")]
         public DateTime DataNascimento { get; set; }
 
@@ -35,7 +38,7 @@ namespace PAP3.Models
         [Display(Name = "Telefone")]
         public string Telefone { get; set; }
 
-        public string Imagem { get; set; }
+        public string Avatar { get; set; }
 
 
 
