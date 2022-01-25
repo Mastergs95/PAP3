@@ -19,7 +19,7 @@ namespace PAP3.Models
         public string NomeProduto { get; set; }
 
         [Required]
-        [Display(Name = "Preço por Unidade")]
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal PrecoUnidade { get; set; }
 
         [Required]
@@ -32,6 +32,10 @@ namespace PAP3.Models
         public bool Descontinuado { get; set; }
 
         public string Imagem { get; set; }
+
+
+        public List <DetalhesPedido> DetalhesPedido { get; set; }
+        public List<ProdutosTag> ProdutosTags { get; set; }
 
 
 

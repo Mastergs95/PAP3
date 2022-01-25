@@ -15,11 +15,12 @@ namespace PAP3.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(50, MinimumLength = 3)]
-        public int TagId { get; set; }
+        [StringLength(100, MinimumLength = 3)]
+        public String descriçao { get; set; }
 
-
-
+        
+        [NotMapped]
+        public List<ProdutosTag> ProdutosTags { get; set; }
 
 
     }

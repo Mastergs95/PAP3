@@ -20,7 +20,7 @@ namespace PAP3.Models
 
         [Required]
         [ForeignKey("Produtos")]
-        public int ProdudtoId { get; set; }
+        public int ProdutoId { get; set; }
 
         [Required]
         public int PreçoUnidade { get; set; }
@@ -28,6 +28,9 @@ namespace PAP3.Models
         [Required]
         [Display(Name = "Quantidade")]
         public Int16 Quantidade { get; set; }
+
+        public Pedido Pedido { get; set; }
+        public  Produto Produto { get; set; }
 
     }
 }

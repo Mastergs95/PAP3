@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,12 +15,16 @@ namespace PAP3.Models
         [Key]
         public int Id { get; set; }
 
+        [ForeignKey("User")]
+        public string UserId { get; set; }
+        public virtual IdentityUser User { get; set; }
+
         [Required]
         [StringLength(50, MinimumLength = 3)]
         public string Nome { get; set; }
 
         [Required]
-        [StringLength(256, MinimumLength = 11)]
+        [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -34,9 +39,25 @@ namespace PAP3.Models
         [Display(Name = "Género")]
         public String Genero { get; set; }
 
-        [StringLength(14, MinimumLength = 12)]
+        [Required]
+        [Phone]
         [Display(Name = "Telefone")]
         public string Telefone { get; set; }
+
+        [StringLength(256, MinimumLength = 3)]
+        [Display(Name = "Localidade")]
+        public string Localidade { get; set; }
+
+        [StringLength(256, MinimumLength = 3)]
+        [Display(Name = "País")]
+        public string Pais { get; set; }
+
+        [Display(Name = "Código-Postal")]
+        public int CodPostal { get; set; }
+
+        [Display(Name = "Morada")]
+        public string Morada { get; set; }
+
 
         public string Avatar { get; set; }
 

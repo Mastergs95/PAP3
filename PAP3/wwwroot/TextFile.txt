@@ -1,0 +1,3 @@
+﻿-Pensar em reports
+-Chat entre funcionario e cliente
+-Enviar email direto do meu site (Funcionarios)
