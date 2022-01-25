@@ -11,15 +11,14 @@ namespace PAP3.Models
     [Table("ProdutosTags")]
     public class ProdutosTag
     {
+
         [Required]
-        [ForeignKey("Produtos")]
         public int ProdutoId { get; set; }
 
         [Required]
-        [ForeignKey("CloudTags")]
         public int TagId { get; set; }
 
-
-
+        public Produto Produto { get; set; }
+        public CloudTag CloudTag { get; set; }
     }
 }

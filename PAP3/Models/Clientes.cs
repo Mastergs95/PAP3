@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,26 +15,44 @@ namespace PAP3.Models
         [Key]
         public int Id { get; set; }
 
+        [ForeignKey("User")]
+        public string UserId { get; set; }
+        public virtual IdentityUser User { get; set; }
+
         [Required]
         [StringLength(50, MinimumLength = 3)]
         public string Nome { get; set; }
 
         [Required]
-        [StringLength(256, MinimumLength = 11)]
-        [Display(Name = "Email")]
+        [EmailAddress]
         public string Email { get; set; }
 
         [StringLength(3)]
         [Display(Name = "Idioma")]
         public string Idioma { get; set; }
 
-        [StringLength(14, MinimumLength = 12)]
-        [Display(Name = "Telefone")]
+        [Required]
+        [Phone]
         public string Telefone { get; set; }
+
+        [StringLength(256, MinimumLength = 3)]
+        [Display(Name = "Localidade")]
+        public string Localidade { get; set; }
+
+        [StringLength(256, MinimumLength = 3)]
+        [Display(Name = "País")]
+        public string Pais { get; set; }
+
+        [Display(Name = "Código-Postal")]
+        public int CodPostal { get; set; }
+
+        [Display(Name = "Morada")]
+        public string Morada { get; set; }
+
 
         public string Avatar { get; set; }
 
-        public CreditCardAttribute CartaoCredito { get; set; }
+        public List<Pedido> Pedidos { get; set; }
 
 
 
