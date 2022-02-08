@@ -187,7 +187,9 @@ h2 {
 
 .main {
   background: #f8f8f8;
-  padding: 150px 0; }
+  padding: 500px;
+
+}
 
 .clear {
   clear: both; }
@@ -241,7 +243,7 @@ body {
 
 .position-center {
   position: absolute;
-  top: 50%;
+  top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
@@ -253,7 +255,8 @@ body {
   margin-bottom: 150px; }
 
 .signup-content {
-  padding: 75px 0; }
+    padding: 75px 0;
+}
 
 .signup-form, .signup-image, .signin-form, .signin-image {
   width: 50%;
