@@ -33,7 +33,7 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="~/Fxconfig/css/util.css">
     <link rel="stylesheet" type="text/css" href="~/Fxconfig/css/main.css">
-    <script type="text/javascript" src="~/Fxconfig/js/main.js"></script>
+   
 
     <!--===============================================================================================-->
 </head>
@@ -44,11 +44,11 @@
             <section>
                 <form class="login100-form validate-form" id="account" method="post">
                     <span class="login100-form-title p-b-26">
-                        Welcome
+                        Log In
                     </span>
-                    <span class="login100-form-title p-b-48">
+                    @*<span class="login100-form-title p-b-48">
                         <i class="zmdi zmdi-font"></i>
-                    </span>
+                    </span>*@
                     <hr />
 
                     <div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
@@ -58,10 +58,10 @@
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Enter password">
-                        <span class="btn-show-pass">
-                            <i class="zmdi zmdi-eye"></i>
+                        <span class="btn-show-pass" >
+                            <i class="zmdi zmdi-eye" id="togglePassword" cursor: pointer></i>
                         </span>
-                        <input class="input100" type="text" id="pass" name="pass" asp-for="Input.Password" />
+                        <input class="input100" type="password"  asp-for="Input.Password" />
                         <span class="focus-input100" data-placeholder="Password"></span>
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
                     </div>
@@ -176,25 +176,15 @@
 
     /*==================================================================
     [ Show pass ]*/
-    var showPass = 0;
-    $('.btn-show-pass').on('click', function(){
-        if(showPass == 0) {
-            //$(this).next('input').attr('type','text');
-            $('pass').attr('type', 'text');
-            $('pass').val('321');
-            $(this).find('i').removeClass('zmdi-eye');
-            $(this).find('i').addClass('zmdi-eye-off');
-            showPass = 1;
-        }
-        else {
-            //$(this).next('input').attr('type','password');
-            $('pass').attr('type', 'password');
-            $('pass').val('321');
-            $(this).find('i').addClass('zmdi-eye');
-            $(this).find('i').removeClass('zmdi-eye-off');
-            showPass = 0;
-        }
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#Input_Password');
 
+    togglePassword.addEventListener('click', function (e) {
+        // toggle the type attribute
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        // toggle the eye slash icon
+        this.classList.toggle('fa-eye-slash');
     });
 
 

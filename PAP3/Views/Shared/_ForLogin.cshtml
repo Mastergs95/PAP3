@@ -27,8 +27,7 @@
             <div class="row">
                 <div class="col-md-6 d-flex align-items-center">
                     <p class="mb-0 phone pl-md-2">
-                        <a href="#" class="mr-2"><span class="fa fa-phone mr-1"></span> +00 1234 567</a>
-                        <a href="#"><span class="fa fa-paper-plane mr-1"></span> youremail@email.com</a>
+                        <a asp-action="Index"><span class="fa fa-paper-plane mr-1"></span> LiquorStore</a>
                     </p>
                 </div>
                 <div class="col-md-6 d-flex justify-content-md-end">
@@ -41,7 +40,7 @@
                         </p>
                     </div>
                     <div class="reg">
-                        <p class="mb-0"><a href="#" class="mr-2">Sign Up</a> <a href="#">Log In</a></p>
+                        <p class="mb-0"><a asp-area="Identity" asp-page="/Account/Register" class="mr-2">Sign Up</a> <a asp-area="Identity" asp-page="/Account/Login">Log In</a></p>
                     </div>
                 </div>
             </div>
@@ -59,7 +58,7 @@
             <div class="row mb-5">
                 <div class="col-sm-12 col-md">
                     <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2 logo"><a href="#">Liquor <span>Store</span></a></h2>
+                        <h2 class="ftco-heading-2 logo"><a asp-action="Index">Liquor <span>Store</span></a></h2>
                         <p>Far far away, behind the word mountains, far from the countries.</p>
                         <ul class="ftco-footer-social list-unstyled mt-2">
                             <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
@@ -72,9 +71,9 @@
                     <div class="ftco-footer-widget mb-4 ml-md-4">
                         <h2 class="ftco-heading-2">My Accounts</h2>
                         <ul class="list-unstyled">
-                            <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>My Account</a></li>
-                            <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Register</a></li>
-                            <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>Log In</a></li>
+                            <li><a asp-area="Identity" asp-page="/Account/Manage/Index"><span class="fa fa-chevron-right mr-2"></span>My Account</a></li>
+                            <li><a asp-area="Identity" asp-page="/Account/Register"><span class="fa fa-chevron-right mr-2"></span>Register</a></li>
+                            <li><a asp-area="Identity" asp-page="/Account/Login"><span class="fa fa-chevron-right mr-2"></span>Log In</a></li>
                             <li><a href="#"><span class="fa fa-chevron-right mr-2"></span>My Order</a></li>
                         </ul>
                     </div>
