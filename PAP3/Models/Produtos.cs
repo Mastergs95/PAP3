@@ -20,6 +20,7 @@ namespace PAP3.Models
 
         [Required]
         [Column(TypeName = "decimal(18, 2)")]
+        [Display(Name="Preço Unitário")]
         public decimal PrecoUnidade { get; set; }
 
         [Required]
