@@ -21,5 +21,23 @@ namespace PAP3.Controllers
         {
             return View(await _context.Produtos.ToListAsync());
         }
+
+   
+        public async Task<IActionResult> SingleProduct(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var produto = await _context.Produtos
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (produto == null)
+            {
+                return NotFound();
+            }
+
+            return View(produto);
+        }
     }
 }
