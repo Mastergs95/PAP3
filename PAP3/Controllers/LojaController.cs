@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using PAP3.Models;
 using PAP3.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PAP3.Controllers
 {
@@ -17,9 +18,10 @@ namespace PAP3.Controllers
             _context = context;
         }
 
+        //[Authorize]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Produtos.ToListAsync());
+            return View(await _context.Produtos.Include(art => art.Categoria).ToListAsync());
         }
 
    

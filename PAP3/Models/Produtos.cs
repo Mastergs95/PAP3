@@ -32,11 +32,18 @@ namespace PAP3.Models
         [Display(Name = "Descontinuado")]
         public bool Descontinuado { get; set; }
 
+        [Required]
+        [ForeignKey("Categorias")]
+        public int CategoriaId { get; set; }
+
         public string Imagem { get; set; }
 
 
         public List <DetalhesPedido> DetalhesPedido { get; set; }
         public List<ProdutosTag> ProdutosTags { get; set; }
+
+        public Categoria Categoria { get; set; }
+
 
 
 

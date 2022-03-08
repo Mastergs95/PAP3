@@ -23,7 +23,7 @@ namespace PAP3.Data
 
         public DbSet<CloudTag> CloudTags { get; set; }
 
-
+        public DbSet<Categoria> Categorias { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

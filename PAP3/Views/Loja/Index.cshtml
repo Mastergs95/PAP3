@@ -30,13 +30,13 @@
                         <div class="col-md-12 d-flex justify-content-between align-items-center">
                             <h4 class="product-select">Select Types of Products</h4>
                             <select class="selectpicker" multiple>
-                                <option>Brandy</option>
-                                <option>Gin</option>
-                                <option>Rum</option>
-                                <option>Tequila</option>
-                                <option>Vodka</option>
-                                <option>Whiskey</option>
-                            </select>
+                                @foreach (var item in Model)
+                                {
+
+                                <option>@Html.DisplayFor(modelItem => item.Categoria.Nome)</option>
+
+                                }
+                                </select>
                         </div>
                     </div>
                     <div class="row">
@@ -45,7 +45,7 @@
 
                             <div class="col-md-4 d-flex">
                                 <div class="product ftco-animate">
-                                    <div class="img d-flex align-items-center justify-content-center" style="background-image: url(@ImageHelper.GetImageLink(@item.Imagem, "products");">
+                                    <div class="img d-flex align-items-center justify-content-center" style="background-image: url(@ImageHelper.GetImageLink(@item.Imagem, "products"))">
                                         <div class="desc">
                                             <p class="meta-prod d-flex">
                                                 <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
@@ -58,7 +58,7 @@
 
                                     <div class="text text-center">
                                         @*<span class="sale">Sale</span>*@
-                                        <span class="category">Brandy</span>
+                                        <span class="category">@Html.DisplayFor(modelItem => item.Categoria.Nome)</span>
                                         <h2>@Html.DisplayFor(modelItem => item.NomeProduto)</h2>
                                         <p class="mb-0">@*<span class="price price-sale">$69.00</span>*@ <span class="price">@Html.DisplayFor(modelItem => item.PrecoUnidade)€</span></p>
                                     </div>
@@ -293,12 +293,14 @@
                         <div class="categories">
                             <h3>Product Types</h3>
                             <ul class="p-0">
-                                <li><a href="#">Brandy <span class="fa fa-chevron-right"></span></a></li>
-                                <li><a href="#">Gin <span class="fa fa-chevron-right"></span></a></li>
-                                <li><a href="#">Rum <span class="fa fa-chevron-right"></span></a></li>
-                                <li><a href="#">Tequila <span class="fa fa-chevron-right"></span></a></li>
-                                <li><a href="#">Vodka <span class="fa fa-chevron-right"></span></a></li>
-                                <li><a href="#">Whiskey <span class="fa fa-chevron-right"></span></a></li>
+                                @foreach (var item in Model)
+                                {
+
+                                <li><a href="#">@Html.DisplayFor(modelItem => item.Categoria.Nome) <span class="fa fa-chevron-right"></span></a></li>
+
+                                }
+                                
+                   
                             </ul>
                         </div>
                     </div>
