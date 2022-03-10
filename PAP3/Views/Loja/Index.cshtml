@@ -33,13 +33,14 @@
                                 @foreach (var item in Model)
                                 {
 
-                                <option>@Html.DisplayFor(modelItem => item.Categoria.Nome)</option>
-
+                                    <option>@Html.DisplayFor(modelItem => item.Categoria.Nome)</option>
+                                    
                                 }
-                                </select>
+                            </select>
                         </div>
                     </div>
                     <div class="row">
+
                         @foreach (var item in Model)
                         {
 

@@ -18,6 +18,8 @@ namespace PAP3.Models
         [StringLength(50, MinimumLength = 3)]
         public string Nome { get; set; }
 
+        public string Imagem { get; set; }
+
         public List<Produto> Produtos { get; set; }
     }
 }
