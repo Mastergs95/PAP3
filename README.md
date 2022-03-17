@@ -1,5 +1,7 @@
 # PAP3
 
+[![.NET](https://github.com/Mastergs95/PAP3/actions/workflows/dotnet.yml/badge.svg?branch=master)](https://github.com/Mastergs95/PAP3/actions/workflows/dotnet.yml)
+
 Links Essenciais:
 
 https://www.entityframeworktutorial.net/efcore/conventions-in-ef-core.aspx
