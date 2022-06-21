@@ -1,0 +1,23 @@
+﻿@model PAP3.Models.Cart
+@{
+   ViewData["Title"] = "AddtoCart";
+}
+
+<section>
+    <br/>
+<h2>Add to Cart</h2>
+<br/>
+
+<form asp-action="AddtoCart"><br/>
+
+    <input asp-for = "prodName"><br/>
+    <input asp-for = "qty"><br/>
+    <input asp-for = "price"><br/>
+
+    <input type="submit" value="Create" class="btn btn-primary" />
+</form>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
