@@ -1,0 +1,9 @@
+- name: action-git-diff-suggestions
+  # Você pode fixar o commit exato ou a versão.
+  # usa: getsentry/action-git-diff-suggestions@8c75946d0d7bbe80a92cf3579d544321512c30b7
+  usa: getsentry/action-git-diff-suggestions@v1
+  com:
+    #token do github
+    github-token: # opcional
+    # A mensagem para preceder a sugestão de revisão
+    Mensagem (opcional
