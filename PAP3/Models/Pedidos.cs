@@ -46,7 +46,7 @@ namespace PAP3.Models
         [Display(Name = "Morada")]
         public string Morada { get; set; }
 
-        public DetalhesPedido DetalhesPedido { get; set; }
+        public List<DetalhesPedido> DetalhesPedido { get; set; }
         public Cliente Cliente { get; set; }
     }
 }

@@ -40,22 +40,22 @@
 						    <tr class="alert" role="alert">
 
 						    	<td>
-						    		<div class="img" style="background-image: url(images/prod-1.jpg);"></div>
+						    		<div class="img" style="background-image: url(images/products/prod-1.jpg);"></div>
 						    	</td>
-						      <td>
-						      	<div class="email">
-						      		<span> @Html.DisplayFor(modelItem => item.prodName)</span>
-						      		<span>Fugiat voluptates quasi nemo, ipsa perferendis</span>
-						      	</div>
+								<td></td>
+						      <td id=Product>
+						      	
+						      		<span>@Html.DisplayFor(model => item.Produto.NomeProduto)</span>
+
 						      </td>
-						      <td id="price">@Html.DisplayFor(model => item.price)</td>
+						      <td id="price">@Html.DisplayFor(model => item.Produto.PrecoUnidade)</td>
 						      <td class="quantity">
 					        	<div class="input-group">
 				             	<span id="qty"> @Html.DisplayFor(modelItem => item.qty)</span>
 				          	</div>
 				          </td>
 				          <td id="total"></td>
-						      <td>
+						      <td onload="total()">
 						      	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
 				          	</button>
@@ -64,7 +64,9 @@
 							}
 						  </tbody>
 						</table>
+						
 					</div>
+					
     		</div>
     		<div class="row justify-content-end">
     			<div class="col col-lg-5 col-md-6 mt-5 cart-wrap ftco-animate">
@@ -99,8 +101,12 @@
 
 			var total = parseInt(price) * parseInt(qty);
 
+			
+
 			document.getElementById("total").innerHTML = total
 		}
-		total()
+		
+
+
 	</script>
 }

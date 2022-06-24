@@ -3,21 +3,19 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PAP3.Data;
 
-namespace PAP3.Data.Migrations
+namespace PAP3.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220127154631_EnderecosRemoved")]
-    partial class EnderecosRemoved
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.20")
+                .HasAnnotation("ProductVersion", "3.1.21")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -221,6 +219,57 @@ namespace PAP3.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("PAP3.Models.Cart", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ClienteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProdutoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("price")
+                        .HasColumnType("int");
+
+                    b.Property<int>("qty")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("Cart");
+                });
+
+            modelBuilder.Entity("PAP3.Models.Categoria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Imagem")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categorias");
+                });
+
             modelBuilder.Entity("PAP3.Models.Cliente", b =>
                 {
                     b.Property<int>("Id")
@@ -310,8 +359,7 @@ namespace PAP3.Data.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("PedidoId")
-                        .IsUnique();
+                    b.HasIndex("PedidoId");
 
                     b.HasIndex("ProdutoId");
 
@@ -412,6 +460,8 @@ namespace PAP3.Data.Migrations
 
                     b.HasKey("NumPedido");
 
+                    b.HasIndex("ClienteId");
+
                     b.ToTable("Pedidos");
                 });
 
@@ -421,6 +471,9 @@ namespace PAP3.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoriaId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Descontinuado")
                         .HasColumnType("bit")
@@ -441,6 +494,8 @@ namespace PAP3.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoriaId");
 
                     b.ToTable("Produtos");
                 });
@@ -511,6 +566,19 @@ namespace PAP3.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PAP3.Models.Cart", b =>
+                {
+                    b.HasOne("PAP3.Models.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId");
+
+                    b.HasOne("PAP3.Models.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("PAP3.Models.Cliente", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
@@ -521,8 +589,8 @@ namespace PAP3.Data.Migrations
             modelBuilder.Entity("PAP3.Models.DetalhesPedido", b =>
                 {
                     b.HasOne("PAP3.Models.Pedido", "Pedido")
-                        .WithOne("DetalhesPedido")
-                        .HasForeignKey("PAP3.Models.DetalhesPedido", "PedidoId")
+                        .WithMany("DetalhesPedido")
+                        .HasForeignKey("PedidoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -538,6 +606,24 @@ namespace PAP3.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("PAP3.Models.Pedido", b =>
+                {
+                    b.HasOne("PAP3.Models.Cliente", "Cliente")
+                        .WithMany("Pedidos")
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PAP3.Models.Produto", b =>
+                {
+                    b.HasOne("PAP3.Models.Categoria", "Categoria")
+                        .WithMany("Produtos")
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PAP3.Models.ProdutosTag", b =>

@@ -7,17 +7,17 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PAP3.Data;
 
-namespace PAP3.Data.Migrations
+namespace PAP3.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220127151159_MycreationTables2")]
-    partial class MycreationTables2
+    [Migration("20220630151628_changeCart_")]
+    partial class changeCart_
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.20")
+                .HasAnnotation("ProductVersion", "3.1.21")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -221,6 +221,57 @@ namespace PAP3.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("PAP3.Models.Cart", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ClienteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProdutoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("price")
+                        .HasColumnType("int");
+
+                    b.Property<int>("qty")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("Cart");
+                });
+
+            modelBuilder.Entity("PAP3.Models.Categoria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Imagem")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categorias");
+                });
+
             modelBuilder.Entity("PAP3.Models.Cliente", b =>
                 {
                     b.Property<int>("Id")
@@ -231,6 +282,9 @@ namespace PAP3.Data.Migrations
                     b.Property<string>("Avatar")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CodPostal")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -239,16 +293,32 @@ namespace PAP3.Data.Migrations
                         .HasColumnType("nvarchar(3)")
                         .HasMaxLength(3);
 
+                    b.Property<string>("Localidade")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("Morada")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<string>("Pais")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
                     b.Property<string>("Telefone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Clientes");
                 });
@@ -283,10 +353,7 @@ namespace PAP3.Data.Migrations
                     b.Property<int>("PreçoUnidade")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProdudtoId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProdutoId")
+                    b.Property<int>("ProdutoId")
                         .HasColumnType("int");
 
                     b.Property<short>("Quantidade")
@@ -294,44 +361,11 @@ namespace PAP3.Data.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("PedidoId")
-                        .IsUnique();
+                    b.HasIndex("PedidoId");
 
                     b.HasIndex("ProdutoId");
 
                     b.ToTable("DetalhesPedidos");
-                });
-
-            modelBuilder.Entity("PAP3.Models.Endereço", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("ClienteId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CodPostal")
-                        .HasColumnType("int");
-
-                    b.Property<string>("IdUser")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Localidade")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("Pais")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
-
-                    b.HasKey("id");
-
-                    b.HasIndex("ClienteId");
-
-                    b.ToTable("Endereços");
                 });
 
             modelBuilder.Entity("PAP3.Models.Funcionario", b =>
@@ -344,6 +378,9 @@ namespace PAP3.Data.Migrations
                     b.Property<string>("Avatar")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CodPostal")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime2");
 
@@ -355,6 +392,13 @@ namespace PAP3.Data.Migrations
                         .HasColumnType("nvarchar(9)")
                         .HasMaxLength(9);
 
+                    b.Property<string>("Localidade")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("Morada")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Nif")
                         .HasColumnType("int");
 
@@ -363,11 +407,20 @@ namespace PAP3.Data.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<string>("Pais")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
                     b.Property<string>("Telefone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Funcionarios");
                 });
@@ -379,22 +432,37 @@ namespace PAP3.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CodPostal")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DataPedido")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Localidade")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("Morada")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<string>("Pais")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("NumPedido");
+
+                    b.HasIndex("ClienteId");
 
                     b.ToTable("Pedidos");
                 });
@@ -405,6 +473,9 @@ namespace PAP3.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoriaId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Descontinuado")
                         .HasColumnType("bit")
@@ -425,6 +496,8 @@ namespace PAP3.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoriaId");
 
                     b.ToTable("Produtos");
                 });
@@ -495,24 +568,64 @@ namespace PAP3.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PAP3.Models.Cart", b =>
+                {
+                    b.HasOne("PAP3.Models.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId");
+
+                    b.HasOne("PAP3.Models.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PAP3.Models.Cliente", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("PAP3.Models.DetalhesPedido", b =>
                 {
                     b.HasOne("PAP3.Models.Pedido", "Pedido")
-                        .WithOne("DetalhesPedido")
-                        .HasForeignKey("PAP3.Models.DetalhesPedido", "PedidoId")
+                        .WithMany("DetalhesPedido")
+                        .HasForeignKey("PedidoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PAP3.Models.Produto", "Produto")
                         .WithMany("DetalhesPedido")
-                        .HasForeignKey("ProdutoId");
+                        .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("PAP3.Models.Endereço", b =>
+            modelBuilder.Entity("PAP3.Models.Funcionario", b =>
                 {
-                    b.HasOne("PAP3.Models.Cliente", null)
-                        .WithMany("Endereços")
-                        .HasForeignKey("ClienteId");
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("PAP3.Models.Pedido", b =>
+                {
+                    b.HasOne("PAP3.Models.Cliente", "Cliente")
+                        .WithMany("Pedidos")
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PAP3.Models.Produto", b =>
+                {
+                    b.HasOne("PAP3.Models.Categoria", "Categoria")
+                        .WithMany("Produtos")
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PAP3.Models.ProdutosTag", b =>

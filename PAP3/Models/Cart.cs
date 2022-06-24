@@ -13,13 +13,21 @@ namespace PAP3.Models
     public class Cart
     {
         [Key]
-        public int prodId { get; set; }
+        public int id { get; set; }
 
-        public string prodName { get;set; }
+        [Required]
+        [ForeignKey("Produtos")]
+        public int ProdutoId { get; set; }
+
+        [Required]
+        [ForeignKey("Clientes")]
+        public int ClientId { get; set; }
 
         public int qty { get; set; }
 
         public int price { get; set; }
 
+        public Cliente Cliente { get; set; }
+        public Produto Produto { get; set; }
     }
 }
