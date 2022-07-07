@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PAP3.Data;
 using PAP3.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PAP3.Controllers
 {
+    [Authorize(Roles ="Administrator")]
     public class ProdutosController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using PAP3.Models;
 
 namespace PAP3.Controllers
 {
+
     public class CategoriasController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -44,6 +46,7 @@ namespace PAP3.Controllers
         }
 
         // GET: Categorias/Create
+        [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
             return View();
@@ -66,6 +69,7 @@ namespace PAP3.Controllers
         }
 
         // GET: Categorias/Edit/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,6 +90,7 @@ namespace PAP3.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nome")] Categoria categoria)
         {
             if (id != categoria.Id)
@@ -117,6 +122,7 @@ namespace PAP3.Controllers
         }
 
         // GET: Categorias/Delete/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,6 +141,7 @@ namespace PAP3.Controllers
         }
 
         // POST: Categorias/Delete/5
+        [Authorize(Roles = "Administrator")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

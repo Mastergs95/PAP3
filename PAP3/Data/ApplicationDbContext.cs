@@ -9,6 +9,7 @@ namespace PAP3.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {}
@@ -41,6 +42,7 @@ namespace PAP3.Data
                 .WithMany(c => c.ProdutosTags)
                 .HasForeignKey(bc => bc.TagId);
         }
+
     }
 
 

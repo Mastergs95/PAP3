@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PAP3.Data;
 using PAP3.Models;
 
+
 namespace PAP3.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class ProdutosTagsController : Controller
     {
         private readonly ApplicationDbContext _context;
