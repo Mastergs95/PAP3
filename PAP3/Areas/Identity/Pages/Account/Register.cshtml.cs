@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using PAP3.Data;
+using PAP3.Models;
 
 namespace PAP3.Areas.Identity.Pages.Account
 {
@@ -23,17 +25,20 @@ namespace PAP3.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext _context;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         [BindProperty]
@@ -76,8 +81,21 @@ namespace PAP3.Areas.Identity.Pages.Account
             {
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
+
+                
                 if (result.Succeeded)
                 {
+                    Cliente client = new Cliente();
+                    client.UserId = user.Id;
+                    client.Nome = "unknow";
+                    client.Email = user.Email;
+                    client.Telefone = "unknow";
+                    client.CodPostal = 123;
+                    _context.Add(client);
+                    await _context.SaveChangesAsync();
+
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

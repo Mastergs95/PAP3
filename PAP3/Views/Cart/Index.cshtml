@@ -7,10 +7,11 @@
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-center">
-          <div class="col-md-9 ftco-animate mb-5 text-center">
-          	<p class="breadcrumbs mb-0"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Cart <i class="fa fa-chevron-right"></i></span></p>
-            <h2 class="mb-0 bread">My Cart</h2>
-          </div>
+            <div class="col-md-9 ftco-animate mb-5 text-center">
+                <p class="breadcrumbs mb-0"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Cart <i class="fa fa-chevron-right"></i></span></p>
+                <h2 class="mb-0 bread">My Cart</h2>
+                
+            </div>
         </div>
       </div>
     </section>
@@ -27,7 +28,6 @@
 						    	<th>Product</th>
 						      <th>Price</th>
 						      <th>Quantity</th>
-						      <th>total</th>
 						      <th>&nbsp;</th>
 						    </tr>
 						  </thead>
@@ -36,6 +36,7 @@
 						  
 						  <tbody>
 						  @foreach(var item in Model){
+							  
 
 						    <tr class="alert" role="alert">
 
@@ -54,8 +55,8 @@
 				             	<span id="qty"> @Html.DisplayFor(modelItem => item.qty)</span>
 				          	</div>
 				          </td>
-				          <td id="total"></td>
-						      <td onload="total()">
+                              
+						      <td>
 						      	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
 				          	</button>
@@ -74,16 +75,16 @@
     					<h3>Cart Totals</h3>
     					<p class="d-flex">
     						<span>Subtotal</span>
-    						<span>$20.60</span>
+                            <span id="subtotal">@ViewData["TC"]</span>€
     					</p>
     					<p class="d-flex">
     						<span>Delivery</span>
-    						<span>$0.00</span>
+    						<span id="delivery">3.00</span>€
     					</p>
     					<hr>
     					<p class="d-flex total-price">
     						<span>Total</span>
-    						<span>$17.60</span>
+                            <span id="total"></span>
     					</p>
     				</div>
     				<p class="text-center"><a  class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
@@ -96,16 +97,17 @@
 @section scripts{
 	<script>
 		function total(){
-			var price = document.getElementById("price").innerHTML
-			var qty = document.getElementById("qty").innerHTML
+			var price = document.getElementById("subtotal").innerHTML
+			var qty = document.getElementById("delivery").innerHTML
 
-			var total = parseInt(price) * parseInt(qty);
+			var total = parseInt(price) + parseInt(qty);
 
 			
 
-			document.getElementById("total").innerHTML = total
+			document.getElementById("total").innerHTML = total +"€"
 		}
-		
+
+		total()
 
 
 	</script>

@@ -17,45 +17,85 @@ namespace PAP3.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
-        List<Cart> li = new List<Cart>();
+
+        private int ClientId = -1;
+
         public CartController(ApplicationDbContext context, UserManager<IdentityUser> user)
         {
             _context = context;
             _userManager = user;
+
+        }
+
+        public int GetClientId()
+        {
+            if (ClientId == -1)
+            {
+                string userId = _userManager.GetUserId(User);
+                var client = _context.Clientes.Where(c => c.UserId == userId).FirstOrDefault();
+
+                if (client != null)
+                    ClientId = client.Id;
+                else
+                    ClientId = 0;
+            }
+            return ClientId;
         }
 
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Carts.Include(c => c.Produto);
-            return View(await applicationDbContext.ToListAsync());
+            var produtos = _context.Carts.Include(c => c.Produto).Where(c => c.ClientId == GetClientId());
+            ViewData["TC"] = Total();
+
+            return View(await produtos.ToListAsync());
 
         }
 
-        public async Task<IActionResult> AddtoCart(int id, int price, int qty)
+        public decimal Total()
         {
-            IdentityUser user = await _userManager.GetUserAsync(User);
-            int clientid = _context.Clientes.Where(C => C.UserId == user.Id).FirstOrDefault().Id;
+            var total = _context.Carts.Where(c => c.ClientId == GetClientId()).Sum(c => c.Produto.PrecoUnidade * c.qty);
 
-            var produto = await _context.Carts.Where(c => c.Produto.Id == id).Where(c=>c.ClientId==clientid).FirstOrDefaultAsync();
+            return total;
+        }
 
-            Cart cart = new Cart();
+        [Authorize]
+        public async Task<IActionResult> AddtoCart(int id, int price, int qty)
+        {            
+            Cart cart;
+            
+            cart = await _context.Carts.Where(c => c.Produto.Id == id).Where(c=>c.ClientId== GetClientId()).Include(c=>c.Produto).FirstOrDefaultAsync();
 
-            if (produto==null)
+            bool newRecord = false;
+            
+            if (cart==null)
             {
+                cart = new Cart();
+                
                 cart.qty = 1;
-                cart.ClientId = clientid;
+                cart.ClientId = GetClientId();
                 cart.ProdutoId = id;
+                newRecord = true;
             }
             else
             {
-                cart.qty += 1;
+                if ( cart.qty < cart.Produto.stock)
+                {
+                  cart.qty += 1;  
+                }
+                else
+                {
+                    
+                }
             }
 
-            
+
 
             if (ModelState.IsValid)
             {
                 _context.Add(cart);
+                if (!newRecord)
+                    _context.Entry(cart).State = EntityState.Modified;
+
                 await _context.SaveChangesAsync();
                
             }
