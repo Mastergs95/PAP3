@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -28,7 +29,6 @@ namespace PAP3.Models
         public int stock { get; set; }
 
         [Required]
-        [StringLength(256, MinimumLength = 11)]
         [Display(Name = "Descontinuado")]
         public bool Descontinuado { get; set; }
 
@@ -37,6 +37,9 @@ namespace PAP3.Models
         public int CategoriaId { get; set; }
 
         public string Imagem { get; set; }
+
+        [StringLength(256, MinimumLength = 5)]
+        public string Description { get; set; }
 
 
         public List <DetalhesPedido> DetalhesPedido { get; set; }

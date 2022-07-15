@@ -84,205 +84,70 @@
 
 <section class="ftco-section ftco-no-pb">
     <div class="container">
-        <div class="row">
-            @foreach (var item in Model)
-            {
-            <div class="col-lg-2 col-md-4">
-
-                <div class="sort w-100 text-center ftco-animate">
-                    
-                    <a asp-controller="Loja" asp-action="Index" asp-route-sortOrder="@ViewData["NomeSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]" asp-route-currentCategory=@item.Id> <div class="img" style="background-image: url(@ImageHelper.GetImageLink(@item.Imagem, "products")"></div></a>
-                    <a> <h3 name="SearchString" value="@ViewData["CurrentFilter"]"> @Html.DisplayFor(modelItem => item.Nome)</h3></a>
-                </div>
-            </div>
-            }
+        <div class="row justify-content-center">
+            <div class="col-lg-2 col-md-4 ">
+						<div class="sort w-100 text-center ftco-animate">
+							<div class="img" style="background-image: url(images/licor-de-cereja.jpg);"></div>
+							<a href=/Loja?currentCategory=1><h3>Licores</h3></a>
+						</div>
+					</div>
+            <div class="col-lg-2 col-md-4 ">
+						<div class="sort w-100 text-center ftco-animate">
+							<div class="img" style="background-image: url(images/compota-de-cerejas-scaled.jpg);"></div>
+							<a href=/Loja?currentCategory=1><h3>Compotas</h3></a>
+						</div>
+					</div>
+            
             </div>
     </div>
 </section>
 
 <section class="ftco-section">
     <div class="container">
-        <div class="row justify-content-center pb-5">
-            <div class="col-md-7 heading-section text-center ftco-animate">
-                <span class="subheading">Our Delightful offerings</span>
-                <h2>Tastefully Yours</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 d-flex">
-                <div class="product ftco-animate">
-                    <div class="img d-flex align-items-center justify-content-center" style="background-image: url(images/prod-1.jpg);">
-                        <div class="desc">
-                            <p class="meta-prod d-flex">
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="text text-center">
-                        <span class="sale">Sale</span>
-                        <span class="category">Brandy</span>
-                        <h2>Bacardi 151</h2>
-                        <p class="mb-0"><span class="price price-sale">$69.00</span> <span class="price">$49.00</span></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 d-flex">
-                <div class="product ftco-animate">
-                    <div class="img d-flex align-items-center justify-content-center" style="background-image: url(images/prod-2.jpg);">
-                        <div class="desc">
-                            <p class="meta-prod d-flex">
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="text text-center">
-                        <span class="seller">Best Seller</span>
-                        <span class="category">Gin</span>
-                        <h2>Jim Beam Kentucky Straight</h2>
-                        <span class="price">$69.00</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 d-flex">
-                <div class="product ftco-animate">
-                    <div class="img d-flex align-items-center justify-content-center" style="background-image: url(images/prod-3.jpg);">
-                        <div class="desc">
-                            <p class="meta-prod d-flex">
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="text text-center">
-                        <span class="new">New Arrival</span>
-                        <span class="category">Rum</span>
-                        <h2>Citadelle</h2>
-                        <span class="price">$69.00</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 d-flex">
-                <div class="product ftco-animate">
-                    <div class="img d-flex align-items-center justify-content-center" style="background-image: url(images/prod-4.jpg);">
-                        <div class="desc">
-                            <p class="meta-prod d-flex">
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-shopping-bag"></span></a>
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-heart"></span></a>
-                                <a href="#" class="d-flex align-items-center justify-content-center"><span class="flaticon-visibility"></span></a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="text text-center">
-                        <span class="category">Rum</span>
-                        <h2>The Glenlivet</h2>
-                        <span class="price">$69.00</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="row justify-content-center">
             <div class="col-md-4">
-                <a href="product.html" class="btn btn-primary d-block">View All Products <span class="fa fa-long-arrow-right"></span></a>
+                <a asp-action=Index asp-controller=Loja class="btn btn-primary d-block">View All Products <span class="fa fa-long-arrow-right"></span></a>
             </div>
         </div>
     </div>
 </section>
 
-<section class="ftco-section testimony-section img" style="background-image: url(images/bg_4.jpg);">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row justify-content-center mb-5">
-            <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-                <span class="subheading">Testimonial</span>
-                <h2 class="mb-3">Happy Clients</h2>
+
+		<section class="ftco-counter ftco-section ftco-no-pt ftco-no-pb img bg-light" id="section-counter">
+    	<div class="container">
+    		<div class="row">
+          <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
+            <div class="block-18 py-4 mb-4">
+              <div class="text align-items-center">
+                <strong class="number" data-number="3000">0</strong>
+                <span>Our Satisfied Customers</span>
+              </div>
             </div>
-        </div>
-        <div class="row ftco-animate">
-            <div class="col-md-12">
-                <div class="carousel-testimony owl-carousel ftco-owl">
-                    <div class="item">
-                        <div class="testimony-wrap py-4">
-                            <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
-                            <div class="text">
-                                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <div class="d-flex align-items-center">
-                                    <div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
-                                    <div class="pl-3">
-                                        <p class="name">Roger Scott</p>
-                                        <span class="position">Marketing Manager</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap py-4">
-                            <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
-                            <div class="text">
-                                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <div class="d-flex align-items-center">
-                                    <div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
-                                    <div class="pl-3">
-                                        <p class="name">Roger Scott</p>
-                                        <span class="position">Marketing Manager</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap py-4">
-                            <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
-                            <div class="text">
-                                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <div class="d-flex align-items-center">
-                                    <div class="user-img" style="background-image: url(images/person_3.jpg)"></div>
-                                    <div class="pl-3">
-                                        <p class="name">Roger Scott</p>
-                                        <span class="position">Marketing Manager</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap py-4">
-                            <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
-                            <div class="text">
-                                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <div class="d-flex align-items-center">
-                                    <div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
-                                    <div class="pl-3">
-                                        <p class="name">Roger Scott</p>
-                                        <span class="position">Marketing Manager</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap py-4">
-                            <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></span></div>
-                            <div class="text">
-                                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <div class="d-flex align-items-center">
-                                    <div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
-                                    <div class="pl-3">
-                                        <p class="name">Roger Scott</p>
-                                        <span class="position">Marketing Manager</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          </div>
+          <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
+            <div class="block-18 py-4 mb-4">
+              <div class="text align-items-center">
+                <strong class="number" data-number="115">0</strong>
+                <span>Years of Experience</span>
+              </div>
             </div>
+          </div>
+          <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
+            <div class="block-18 py-4 mb-4">
+              <div class="text align-items-center">
+                <strong class="number" data-number="100">0</strong>
+                <span>Kinds of Liquor</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
+            <div class="block-18 py-4 mb-4">
+              <div class="text align-items-center">
+                <strong class="number" data-number="30">0</strong>
+                <span>Our Branches</span>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-</section>
+    	</div>
+    </section>

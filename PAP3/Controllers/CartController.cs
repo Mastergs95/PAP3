@@ -10,20 +10,23 @@ using Microsoft.AspNetCore.Authorization;
 using PAP3.Helpers;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using NToastNotify;
 
 namespace PAP3.Controllers
 {
     public class CartController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IToastNotification _toastNotification;
         private readonly UserManager<IdentityUser> _userManager;
 
         private int ClientId = -1;
 
-        public CartController(ApplicationDbContext context, UserManager<IdentityUser> user)
+        public CartController(ApplicationDbContext context, UserManager<IdentityUser> user, IToastNotification toastNotification)
         {
             _context = context;
             _userManager = user;
+            _toastNotification = toastNotification;
 
         }
 
@@ -55,10 +58,17 @@ namespace PAP3.Controllers
         {
             var total = _context.Carts.Where(c => c.ClientId == GetClientId()).Sum(c => c.Produto.PrecoUnidade * c.qty);
 
-            return total;
+            return decimal.Round(total, 2, MidpointRounding.AwayFromZero); ;
         }
 
-        [Authorize]
+        public IActionResult Shop()
+        {
+            _toastNotification.AddSuccessToastMessage("Your purchase was successful");
+            return View();
+        }
+
+
+            [Authorize]
         public async Task<IActionResult> AddtoCart(int id, int price, int qty)
         {            
             Cart cart;
@@ -97,7 +107,7 @@ namespace PAP3.Controllers
                     _context.Entry(cart).State = EntityState.Modified;
 
                 await _context.SaveChangesAsync();
-               
+                _toastNotification.AddSuccessToastMessage("Product Added to the cart successfuly");
             }
             return RedirectToAction(nameof(Index));
         }

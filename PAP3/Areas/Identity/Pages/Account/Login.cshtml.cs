@@ -11,23 +11,28 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using NToastNotify;
 
 namespace PAP3.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
+        private readonly IToastNotification _toastNotification;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
+
         public LoginModel(SignInManager<IdentityUser> signInManager, 
             ILogger<LoginModel> logger,
-            UserManager<IdentityUser> userManager)
+            UserManager<IdentityUser> userManager,
+            IToastNotification toastNotification)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _toastNotification = toastNotification;
         }
 
         [BindProperty]
@@ -83,6 +88,7 @@ namespace PAP3.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    _toastNotification.AddSuccessToastMessage("Logged in Successfuly");
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -92,11 +98,13 @@ namespace PAP3.Areas.Identity.Pages.Account
                 if (result.IsLockedOut)
                 {
                     _logger.LogWarning("User account locked out.");
+                    _toastNotification.AddWarningToastMessage("User account locked out.");
                     return RedirectToPage("./Lockout");
                 }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    _toastNotification.AddWarningToastMessage("Invalid login attempt.");
                     return Page();
                 }
             }

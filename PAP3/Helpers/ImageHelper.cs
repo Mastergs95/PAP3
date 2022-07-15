@@ -23,7 +23,7 @@ namespace PAP3.Helpers
             {
                 FolderName += FolderName != "" ? "/" : "";
             }
-            return "/images/" + FolderName +ImageName;
+            return "/images/"  + ImageName;
         }
 
     }

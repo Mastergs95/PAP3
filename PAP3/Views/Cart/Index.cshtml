@@ -41,7 +41,7 @@
 						    <tr class="alert" role="alert">
 
 						    	<td>
-						    		<div class="img" style="background-image: url(images/products/prod-1.jpg);"></div>
+						    		<div class="img" style="background-image: url(@ImageHelper.GetImageLink(@item.Produto.Imagem));"></div>
 						    	</td>
 								<td></td>
 						      <td id=Product>
@@ -56,11 +56,7 @@
 				          	</div>
 				          </td>
                               
-						      <td>
-						      	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
-				          	</button>
-				        	</td>
+						      
 						    </tr>
 							}
 						  </tbody>
@@ -75,19 +71,19 @@
     					<h3>Cart Totals</h3>
     					<p class="d-flex">
     						<span>Subtotal</span>
-                            <span id="subtotal">@ViewData["TC"]</span>€
+                            <span id="subtotal">@ViewData["TC"]€</span>
     					</p>
     					<p class="d-flex">
     						<span>Delivery</span>
-    						<span id="delivery">3.00</span>€
+    						<span id="delivery">3.00€</span>
     					</p>
     					<hr>
-    					<p class="d-flex total-price">
+    					<p class="d-flex">
     						<span>Total</span>
                             <span id="total"></span>
     					</p>
     				</div>
-    				<p class="text-center"><a  class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+    				<p class="text-center"><a asp-action=shop class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
     			</div>
     		</div>
     	</div>
@@ -104,7 +100,7 @@
 
 			
 
-			document.getElementById("total").innerHTML = total +"€"
+			document.getElementById("total").innerHTML = total+"€"
 		}
 
 		total()

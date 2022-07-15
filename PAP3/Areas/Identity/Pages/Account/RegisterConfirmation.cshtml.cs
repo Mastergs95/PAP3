@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using NToastNotify;
 
 namespace PAP3.Areas.Identity.Pages.Account
 {
@@ -14,11 +15,13 @@ namespace PAP3.Areas.Identity.Pages.Account
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _sender;
+        private readonly IToastNotification _toastNotification;
 
-        public RegisterConfirmationModel(UserManager<IdentityUser> userManager, IEmailSender sender)
+        public RegisterConfirmationModel(UserManager<IdentityUser> userManager, IEmailSender sender, IToastNotification toastNotification)
         {
             _userManager = userManager;
             _sender = sender;
+            _toastNotification = toastNotification;
         }
 
         public string Email { get; set; }
@@ -54,6 +57,7 @@ namespace PAP3.Areas.Identity.Pages.Account
                     values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                     protocol: Request.Scheme);
             }
+            _toastNotification.AddSuccessToastMessage("User successfuly registered");
 
             return Page();
         }

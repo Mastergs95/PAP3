@@ -64,8 +64,8 @@
 							<div class="row no-gutters">
 								<div class="col-md-7">
 									<div class="contact-wrap w-100 p-md-5 p-4">
+									<form method="post" action="mailto:jamliquors.noreply@gmail.com">
 										<h3 class="mb-4">Contact Us</h3>
-										
 											<div class="row">
 												<div class="col-md-6">
 													<div class="form-group">
@@ -88,12 +88,12 @@
 												</div>
 												<div class="col-md-12">
 													<div class="form-group">
-														<input type="submit" onclick="sendEmail()" value="Send Message" class="btn btn-primary">
-														
+														<input type="submit" value="Send Message" class="btn btn-primary">
 													</div>
 												</div>
+												
 											</div>
-									
+											</form>
 									</div>
 								</div>
 							</div>
@@ -102,6 +102,7 @@
 				</div>
 			</div>
 		</section>
+
 }
     @section Scripts {
         
@@ -116,7 +117,7 @@
 
 			alert(fsubject);
 
-			window.open(`mailto:jamliquors.noreply@gmail.com?subject= ${fsubject}&body=${body}`);
+			window.open("mailto:jamliquors.noreply@gmail.com");
 }
 	</script>
 

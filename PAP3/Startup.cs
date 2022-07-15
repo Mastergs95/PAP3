@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NToastNotify;
 
 namespace PAP3
 {
@@ -30,15 +31,24 @@ namespace PAP3
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddMvc().AddNToastNotifyNoty(new NotyOptions
+            {
+                Layout = "topRight",
+                ProgressBar = true,
+                Timeout = 5000,
+                Theme = "metroui"
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -52,11 +62,13 @@ namespace PAP3
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseNToastNotify();
 
             app.UseEndpoints(endpoints =>
             {

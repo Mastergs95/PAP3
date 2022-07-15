@@ -476,7 +476,10 @@ namespace PAP3.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("Descontinuado")
-                        .HasColumnType("bit")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.Property<string>("Imagem")
