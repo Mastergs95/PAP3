@@ -70,7 +70,7 @@
                         </div>
                     </li>
                     @if(User.IsInRole("Administrator")){
-                        <li class="nav-item"><a href="Manage" class="nav-link">Manage</a></li>
+                        <li class="nav-item"><a asp-action=Index asp-controller=Manage class="nav-link">Manage</a></li>
                     }
                     
                     <li class="nav-item"><a asp-action=Index asp-controller=Contact class="nav-link">Contact</a></li>
